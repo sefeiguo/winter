@@ -9,7 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <idm.core.version>1.0.0</idm.core.version>
+        <winter.version>0.0.1-SNAPSHOT</winter.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

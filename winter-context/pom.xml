@@ -21,6 +21,12 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.winterframework.core</groupId>
+            <artifactId>winter-core</artifactId>
+            <version>${winter.version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
