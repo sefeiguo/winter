@@ -6,7 +6,7 @@
     <groupId>com.winterframework.boot</groupId>
     <artifactId>winter-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <idm.core.version>1.0.0</idm.core.version>
@@ -14,10 +14,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <maven.complie.plugin>3.8.1</maven.complie.plugin>
+        <lombok.version>1.16.22</lombok.version>
     </properties>
 
     <dependencyManagement>
-        
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <repositories>
@@ -31,6 +39,7 @@
     <build>
         <plugins>
             <plugin>
+                <!--maven-compiler-plugin 是用于在编译（compile）阶段加入定制化参数，而 spring-boot-maven-plugin 是用于 spring boot 项目的打包（package）阶段，两者没什么关系。-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.complie.plugin}</version>
