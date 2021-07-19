@@ -7,27 +7,15 @@
         <artifactId>winter-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.winterframework.stereotype</groupId>
-    <artifactId>winter-context</artifactId>
+    <groupId>com.winterframework.core</groupId>
+    <artifactId>winter-core</artifactId>
     <version>${winter.version}</version>
-    <name>winter-context</name>
-    <description>winter-context project for Spring Boot</description>
+    <name>winter-core</name>
+    <description>winter-core project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.winterframework.boot</groupId>
-            <artifactId>winter-beans</artifactId>
-            <version>${winter.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.winterframework.core</groupId>
-            <artifactId>winter-core</artifactId>
-            <version>${winter.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

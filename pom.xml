@@ -7,6 +7,9 @@
     <artifactId>winter-parent</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>winter-beans</module>
+    </modules>
 
     <properties>
         <winter.version>0.0.1-SNAPSHOT</winter.version>
