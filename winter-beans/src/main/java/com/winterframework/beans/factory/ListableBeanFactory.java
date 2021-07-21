@@ -8,4 +8,5 @@ package com.winterframework.beans.factory;
  * @since 2021/07/13
  */
 public interface ListableBeanFactory extends BeanFactory {
+
 }
