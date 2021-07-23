@@ -1,15 +1,15 @@
 /*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
  */
 package com.winterframework.stereotype;
-
-import com.winterframework.core.annotation.AliasFor;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import com.winterframework.core.annotation.AliasFor;
 
 /**
  * @author huangwh@paraview.cn

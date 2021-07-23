@@ -1,17 +1,22 @@
 /*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
  */
 package com.winterframework.context.support;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.winterframework.Nullable;
 import com.winterframework.beans.BeansException;
 import com.winterframework.beans.factory.config.ConfigurableListableBeanFactory;
+import com.winterframework.context.weaving.ApplicationContext;
 import com.winterframework.context.weaving.ConfigurableApplicationContext;
+import com.winterframework.core.env.ConfigurableEnvironment;
 import com.winterframework.core.env.Environment;
 import com.winterframework.core.io.DefaultResourceLoader;
+import com.winterframework.core.io.PathMatchingResourcePatternResolver;
 import com.winterframework.core.io.Resource;
+import com.winterframework.core.io.ResourcePatternResolver;
 import com.winterframework.util.ObjectUtils;
 
 /**
@@ -27,6 +32,14 @@ import com.winterframework.util.ObjectUtils;
 public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
 
     /**
+     * Parent context.
+     */
+    @Nullable
+    private ApplicationContext parent;
+
+    /** ResourcePatternResolver used by this context. */
+    private ResourcePatternResolver resourcePatternResolver;
+    /**
      * Flag 表明这种情况下是否当前活动。
      */
     private final AtomicBoolean active = new AtomicBoolean();
@@ -38,6 +51,29 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     /** Display name. */
     private String displayName = ObjectUtils.identityToString(this);
+
+    public AbstractApplicationContext(ApplicationContext parent) {
+        this();
+        setParent(parent);
+    }
+
+    public AbstractApplicationContext() {
+        this.resourcePatternResolver = getResourcePatternResolver();
+    }
+
+    protected ResourcePatternResolver getResourcePatternResolver() {
+        return new PathMatchingResourcePatternResolver(this);
+    }
+
+    public void setParent(@Nullable ApplicationContext parent) {
+        this.parent = parent;
+        if (parent != null) {
+            Environment parentEnvironment = parent.getEnvironment();
+            if (parentEnvironment instanceof ConfigurableEnvironment) {
+                getEnvironment().merge((ConfigurableEnvironment) parentEnvironment);
+            }
+        }
+    }
 
     @Override
     public void start() {

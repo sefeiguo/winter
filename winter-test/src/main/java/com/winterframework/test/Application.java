@@ -1,3 +1,6 @@
+/*
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
+ */
 package com.winterframework.test;
 
 import com.winterframework.context.support.ClassPathXmlApplicationContext;

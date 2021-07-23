@@ -1,5 +1,5 @@
 /*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
  */
 package com.winterframework.context.weaving;
 
@@ -14,9 +14,18 @@ package com.winterframework.context.weaving;
  */
 public interface Lifecycle {
 
+    /**
+     * 声明周期启动
+     */
     void start();
 
+    /**
+     * 声明周期停止
+     */
     void stop();
 
+    /**
+     * 声明周期正在运行
+     */
     void isRunning();
 }

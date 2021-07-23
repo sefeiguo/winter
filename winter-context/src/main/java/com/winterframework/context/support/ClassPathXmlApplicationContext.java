@@ -1,11 +1,14 @@
 /*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
  */
 package com.winterframework.context.support;
 
-import com.winterframework.core.io.Resource;
-
 import java.io.IOException;
+
+import com.winterframework.Nullable;
+import com.winterframework.context.weaving.ApplicationContext;
+import com.winterframework.core.io.Resource;
+import com.winterframework.util.Assert;
 
 /**
  * @author huangwh@paraview.cn
@@ -13,8 +16,46 @@ import java.io.IOException;
  */
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
 
-    public ClassPathXmlApplicationContext(String configLocation) {
+    @Nullable
+    private String[] configLocations;
 
+    /**
+     * 创建一个新的ClassPathXmlApplicationContext,加载定义从给定的XML文件,并自动刷新上下文。
+     * 
+     * @param configLocation
+     */
+    public ClassPathXmlApplicationContext(String configLocation) {
+        this(new String[]{configLocation}, true, null);
+    }
+
+    public ClassPathXmlApplicationContext(String[] configLocations, boolean refresh, @Nullable ApplicationContext parent) {
+        super(parent);
+        setConfigLocations(configLocations);
+        if (refresh) {
+            // refresh();
+        }
+    }
+
+    private void setConfigLocations(@Nullable String... locations) {
+        if (locations != null) {
+            Assert.noNullElements(locations, "Config locations must not be null");
+            this.configLocations = new String[locations.length];
+            for (int i = 0; i < locations.length; i++) {
+                this.configLocations[i] = resolvePath(locations[i]).trim();
+            }
+        } else {
+            this.configLocations = null;
+        }
+    }
+
+    /**
+     * 解析路径 替换${}
+     * 
+     * @param path
+     * @return
+     */
+    protected String resolvePath(String path) {
+        return getEnvironment().resolveRequiredPlaceholders(path);
     }
 
     @Override

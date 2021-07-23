@@ -1,5 +1,5 @@
 /*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
  */
 package com.winterframework.context;
 
@@ -16,8 +16,10 @@ public abstract class ApplicationEvent extends EventObject {
     /**
      * Constructs a prototypical Event.
      *
-     * @param source The object on which the Event initially occurred.
-     * @throws IllegalArgumentException if source is null.
+     * @param source
+     *            The object on which the Event initially occurred.
+     * @throws IllegalArgumentException
+     *             if source is null.
      */
     public ApplicationEvent(Object source) {
         super(source);

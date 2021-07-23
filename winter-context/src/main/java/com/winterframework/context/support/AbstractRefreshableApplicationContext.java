@@ -1,11 +1,12 @@
 /*
- * Copyright (C), 2008-2021, Paraview All Rights Reserved.
+ * Copyright (C), 1987-2099, Winter All Rights Reserved.
  */
 package com.winterframework.context.support;
 
 import com.winterframework.Nullable;
 import com.winterframework.beans.factory.config.ConfigurableListableBeanFactory;
 import com.winterframework.beans.factory.support.DefaultListableBeanFactory;
+import com.winterframework.context.weaving.ApplicationContext;
 
 /**
  * 
@@ -20,6 +21,10 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 
     @Nullable
     private volatile DefaultListableBeanFactory beanFactory;
+
+    public AbstractRefreshableApplicationContext(@Nullable ApplicationContext parent) {
+        super(parent);
+    }
 
     @Override
     public final ConfigurableListableBeanFactory getBeanFactory() {

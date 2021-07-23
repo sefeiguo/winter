@@ -5,9 +5,7 @@ package com.winterframework.core.env;
 
 /**
  * @author huangwh@paraview.cn
- * @since 2021/07/13
+ * @since 2021/07/22
  */
-public interface EnvironmentCapable {
-
-    Environment getEnvironment();
+public interface ConfigurableEnvironment extends Environment, ConfigurablePropertyResolver {
 }
