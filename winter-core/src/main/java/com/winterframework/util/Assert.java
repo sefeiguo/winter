@@ -26,7 +26,7 @@ public abstract class Assert {
     }
 
     /**
-     * 检查数据是否为null
+     * 检查数组内元素是否存在null 存在抛出异常
      * 
      * @param array
      * @param message
@@ -39,6 +39,30 @@ public abstract class Assert {
             if (element == null) {
                 throw new IllegalArgumentException(message);
             }
+        }
+    }
+
+    /**
+     * 判断expression是否为true 为true抛出异常
+     * 
+     * @param expression
+     * @param message
+     */
+    public static void isTrue(boolean expression, String message) {
+        if (expression) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * 判断表达是否为false 否则抛出异常
+     * 
+     * @param expression
+     * @param message
+     */
+    public static void state(boolean expression, String message) {
+        if (!expression) {
+            throw new IllegalStateException(message);
         }
     }
 }

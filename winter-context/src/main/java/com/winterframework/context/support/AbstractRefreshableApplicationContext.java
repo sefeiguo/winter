@@ -10,7 +10,7 @@ import com.winterframework.context.weaving.ApplicationContext;
 
 /**
  * 
- * 基类{@link org.springframework.context.ApplicationContext}
+ * 基类{@link com.winterframework.context.ApplicationContext}
  * 实现应该支持多个调用{@link # refresh ()},每次都创建一个新的内部工厂bean实例。
  * 通常(但不一定),这种情况下将由一组配置位置加载bean定义。
  * 

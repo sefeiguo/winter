@@ -10,4 +10,7 @@ import com.winterframework.core.NestedRuntimeException;
  * @since 2021/07/19
  */
 public class BeansException extends NestedRuntimeException {
+    public BeansException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

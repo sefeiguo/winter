@@ -13,10 +13,13 @@ import com.winterframework.context.weaving.ApplicationContext;
 import com.winterframework.context.weaving.ConfigurableApplicationContext;
 import com.winterframework.core.env.ConfigurableEnvironment;
 import com.winterframework.core.env.Environment;
+import com.winterframework.core.env.StandardEnvironment;
 import com.winterframework.core.io.DefaultResourceLoader;
 import com.winterframework.core.io.PathMatchingResourcePatternResolver;
 import com.winterframework.core.io.Resource;
 import com.winterframework.core.io.ResourcePatternResolver;
+import com.winterframework.core.metrics.ApplicationStartup;
+import com.winterframework.core.metrics.StartupStep;
 import com.winterframework.util.ObjectUtils;
 
 /**
@@ -39,6 +42,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     /** ResourcePatternResolver used by this context. */
     private ResourcePatternResolver resourcePatternResolver;
+
+    /** Application startup metrics. **/
+    private ApplicationStartup applicationStartup = ApplicationStartup.DEFAULT;
+
+    @Nullable
+    private ConfigurableEnvironment environment;
     /**
      * Flag 表明这种情况下是否当前活动。
      */
@@ -51,6 +60,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     /** Display name. */
     private String displayName = ObjectUtils.identityToString(this);
+
+    /** Synchronization monitor for the "refresh" and "destroy". */
+    private final Object startupShutdownMonitor = new Object();
 
     public AbstractApplicationContext(ApplicationContext parent) {
         this();
@@ -97,7 +109,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     @Override
     public Environment getEnvironment() {
-        return null;
+        if (this.environment == null) {
+            this.environment = createEnvironment();
+        }
+        return this.environment;
+    }
+
+    protected ConfigurableEnvironment createEnvironment() {
+        return new StandardEnvironment();
     }
 
     @Override
@@ -130,6 +149,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     protected String getDisplayName() {
         return this.displayName;
+    }
+
+    @Override
+    public void refresh() {
+        synchronized (this.startupShutdownMonitor) {
+            StartupStep contextRefresh = this.applicationStartup.start("spring.context.refresh");
+
+        }
     }
 
 }

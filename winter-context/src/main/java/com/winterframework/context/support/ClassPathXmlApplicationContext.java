@@ -9,11 +9,15 @@ import com.winterframework.Nullable;
 import com.winterframework.context.weaving.ApplicationContext;
 import com.winterframework.core.io.Resource;
 import com.winterframework.util.Assert;
+import com.winterframework.util.ObjectUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author huangwh@paraview.cn
  * @since 2021/07/19
  */
+@Slf4j
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
 
     @Nullable
@@ -32,7 +36,8 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
         super(parent);
         setConfigLocations(configLocations);
         if (refresh) {
-            // refresh();
+            log.info("{} start refresh method", ObjectUtils.identityToString(this));
+            refresh();
         }
     }
 

@@ -8,4 +8,8 @@ package com.winterframework.core;
  * @since 2021/07/19
  */
 public class NestedRuntimeException extends RuntimeException {
+
+    public NestedRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
