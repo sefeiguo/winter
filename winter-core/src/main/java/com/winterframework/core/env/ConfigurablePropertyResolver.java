@@ -5,7 +5,12 @@ package com.winterframework.core.env;
 
 /**
  * @author huangwh@paraview.cn
- * @since 2021/07/22
+ * @since 2021/07/2;
  */
 public interface ConfigurablePropertyResolver extends PropertyResolver {
+
+    /**
+     * 验证必要属性的正确性
+     */
+    void validateRequiredProperties();
 }

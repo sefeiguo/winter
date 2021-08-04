@@ -3,6 +3,8 @@
  */
 package com.winterframework.core.env;
 
+import com.winterframework.Nullable;
+
 /**
  * @author huangwh@paraview.cn
  * @since 2021/07/19
@@ -19,4 +21,15 @@ public interface PropertyResolver {
      * @return
      */
     String resolveRequiredPlaceholders(String text);
+
+    /**
+     * 获取资源属性
+     * 
+     * @param key
+     * @return
+     */
+    String getProperty(String key);
+
+    @Nullable
+    <T> T getProperty(String key, Class<T> targetType);
 }

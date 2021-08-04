@@ -3,6 +3,8 @@
  */
 package com.winterframework.core.env;
 
+import com.winterframework.Nullable;
+
 /**
  * @author huangwh@paraview.cn
  * @since 2021/07/22
@@ -44,5 +46,22 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
     @Override
     public String resolveRequiredPlaceholders(String text) {
         return this.propertyResolver.resolveRequiredPlaceholders(text);
+    }
+
+    @Override
+    public void validateRequiredProperties() {
+        this.propertyResolver.validateRequiredProperties();
+    }
+
+    @Override
+    @Nullable
+    public <T> T getProperty(String key, Class<T> targetType) {
+        return this.propertyResolver.getProperty(key, targetType);
+    }
+
+    @Override
+    @Nullable
+    public String getProperty(String key) {
+        return this.propertyResolver.getProperty(key);
     }
 }

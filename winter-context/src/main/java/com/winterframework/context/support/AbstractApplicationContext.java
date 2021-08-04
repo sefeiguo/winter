@@ -22,8 +22,10 @@ import com.winterframework.core.metrics.ApplicationStartup;
 import com.winterframework.core.metrics.StartupStep;
 import com.winterframework.util.ObjectUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * 抽象的实现{@link org.winterframework.context.ApplicationContext}接口。
+ * 抽象的实现{@link com.winterframework.context.ApplicationContext}接口。
  * 没有授权的存储类型用于配置;简单的*实现共同语境的功能。 使用模板方法设计模式,*要求具体的子类实现抽象方法。
  * <p>
  * 纯BeanFactory相比,ApplicationContext应该是*检测特殊bean中定义其内部bean工厂:因此,该类自动注册
@@ -32,6 +34,7 @@ import com.winterframework.util.ObjectUtils;
  * @author huangwh@paraview.cn
  * @since 2021/07/19
  */
+@Slf4j
 public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
 
     /**
@@ -60,6 +63,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     /** Display name. */
     private String displayName = ObjectUtils.identityToString(this);
+
+    /**
+     * 启动时间毫秒
+     */
+    private long startupDate;
 
     /** Synchronization monitor for the "refresh" and "destroy". */
     private final Object startupShutdownMonitor = new Object();
@@ -108,7 +116,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     }
 
     @Override
-    public Environment getEnvironment() {
+    public ConfigurableEnvironment getEnvironment() {
         if (this.environment == null) {
             this.environment = createEnvironment();
         }
@@ -156,7 +164,38 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         synchronized (this.startupShutdownMonitor) {
             StartupStep contextRefresh = this.applicationStartup.start("spring.context.refresh");
 
+            // 准备启动上下文 refresh.
+            prepareRefresh();
+
         }
+    }
+
+    protected void prepareRefresh() {
+        // 初始化启动时间
+        this.startupDate = System.currentTimeMillis();
+        this.closed.set(false);
+        this.active.set(true);
+
+        if (log.isDebugEnabled()) {
+            if (log.isTraceEnabled()) {
+                log.trace("Refreshing " + this);
+            } else {
+                log.debug("Refreshing " + getDisplayName());
+            }
+        }
+
+        // 初始化配置文件的容器环境.
+        initPropertySources();
+
+        // 验证所需的所有属性标记为可解析
+        getEnvironment().validateRequiredProperties();
+    }
+
+    /**
+     * 用实际的实例替换任何存在属性资源
+     */
+    protected void initPropertySources() {
+        // 提供给之类实现 默认没有实现
     }
 
 }

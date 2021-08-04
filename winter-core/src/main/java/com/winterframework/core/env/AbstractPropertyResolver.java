@@ -3,6 +3,9 @@
  */
 package com.winterframework.core.env;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import com.winterframework.Nullable;
 import com.winterframework.core.convert.ConversionService;
 import com.winterframework.core.convert.support.ConfigurableConversionService;
@@ -33,6 +36,8 @@ public abstract class AbstractPropertyResolver implements ConfigurablePropertyRe
 
     @Nullable
     private volatile ConfigurableConversionService conversionService;
+
+    private final Set<String> requiredProperties = new LinkedHashSet<>();
 
     @Override
     public String resolvePlaceholders(String text) {
@@ -81,5 +86,25 @@ public abstract class AbstractPropertyResolver implements ConfigurablePropertyRe
             conversionServiceToUse = DefaultConversionService.getSharedInstance();
         }
         return conversionServiceToUse.convert(value, targetValueType);
+    }
+
+    @Override
+    public void validateRequiredProperties() {
+        MissingRequiredPropertiesException ex = new MissingRequiredPropertiesException();
+        for (String key : this.requiredProperties) {
+            if (this.getProperty(key) == null) {
+                ex.addMissingRequiredProperty(key);
+            }
+        }
+
+        if (!ex.getMissingRequiredProperties().isEmpty()) {
+            throw ex;
+        }
+    }
+
+    @Override
+    @Nullable
+    public String getProperty(String key) {
+        return getProperty(key, String.class);
     }
 }

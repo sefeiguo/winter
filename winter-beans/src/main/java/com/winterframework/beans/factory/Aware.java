@@ -8,8 +8,8 @@ package com.winterframework.beans.factory;
  * 但实际的方法签名是由个人个子通常由一个void-returning方法接受一个参数。
  * <p>
  * 注意,仅仅实现{@link Aware}没有提供默认功能。相反,必须显式地进行处理
- * 例如在一个{@link org.winterframework.beans.factory.config.BeanPostProcessor}。
- * 指{@link org.winterframework.context.support.ApplicationContextAwareProcessor}
+ * 例如在一个{@link com.winterframework.beans.factory.config.BeanPostProcessor}。
+ * 指{@link com.winterframework.context.support.ApplicationContextAwareProcessor}
  * 例如处理特定{@code *知道}接口回调。
  * </p>
  * 

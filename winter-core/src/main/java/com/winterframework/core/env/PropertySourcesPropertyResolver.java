@@ -46,13 +46,22 @@ public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
                 return convertValueIfNecessary(value, targetValueType);
             }
         }
+        if (log.isTraceEnabled()) {
+            log.trace("Could not find key '{}' in any property source", key);
+        }
         return null;
     }
 
     protected void logKeyFound(String key, PropertySource<?> propertySource, Object value) {
         if (log.isDebugEnabled()) {
-            log.debug("Found key '{}' in PropertySource '" + propertySource.getName() + "' with value of type {}", propertySource.getName(),
+            log.debug("Found key '{}' in PropertySource '{}' with value of type {}", key, propertySource.getName(),
                     value.getClass().getSimpleName());
         }
+    }
+
+    @Override
+    @Nullable
+    public <T> T getProperty(String key, Class<T> targetValueType) {
+        return getProperty(key, targetValueType, true);
     }
 }
